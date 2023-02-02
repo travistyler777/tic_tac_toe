@@ -1,0 +1,21 @@
+body {
+    background-color: #1c1e2b;
+    color: #fff;
+}
+
+#gameboard-container {
+    margin:auto;
+    width: 660px;
+    background-color: #292d3e;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+}
+
+.square {
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    text-align: center;
+    background-color: #34394e;
+}
