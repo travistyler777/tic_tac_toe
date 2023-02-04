@@ -1,6 +1,51 @@
 body {
     background-color: #1c1e2b;
     color: #fff;
+    padding-top: 30px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.wrapper {
+    
+    background-color: #1f212e;
+    width: 920px;
+    padding: 40px;
+    margin: auto;
+    border-radius: 10px;
+}
+
+.container {
+    display: flex;
+    width: 900px;
+    margin: auto;
+}
+
+.col2 {
+    padding: 20px;
+    width: 100%;
+}
+
+label {
+    margin: 10px 0 5px;
+    display: block;
+}
+
+input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 0;
+    border-radius: 5px;
+    width: 100%;
+    display: block;
+}
+button {
+    background-color: rgb(0, 145, 255);
+    border: 0;
+    padding: 10px 30px;
+    border-radius: 100px;
 }
 
 #gameboard-container {
