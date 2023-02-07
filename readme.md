@@ -6,7 +6,7 @@
 ## Todo List
 - [X] set players, name, marker, active
 
-//board controller 
+- [ ] board controller 
     - [X] togglePlayer func
     - [X] IF square clicked add marker to square
     - [ ] checkWinner func - winner loops through squares and matches up with winner array
