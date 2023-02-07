@@ -1,30 +1,28 @@
 
-//set players, name, marker, active
+## Program Details
+- Tic Tac Toe Game with AI
+- Practice my functional programming skills. 
 
-//start game function
-    //button is clicked
-    //reset fields
-
-//reset game function
-    //reset fields
-
-//DisplayController
-    //checkWinner
-        //declareWinner
-        //declaireTie
+## Todo List
+- [X] set players, name, marker, active
 
 //board controller 
+    - [X] togglePlayer func
+    - [X] IF square clicked add marker to square
+    - [ ] checkWinner func - winner loops through squares and matches up with winner array
+    - [ ] disableSquare func
 
-    //disableSquare — adds code to square HTML disabling it from being clicked.
+- [ ] start game function
+    - [ ] button is clicked
+    - [ ] reset fields
 
-    //togglePlayer - toggles active player
+- [ ] reset game function
+    - [ ] reset fields
 
-    //IF square clicked
-        //add marker to square
-        //checkWinner
-            //winner loops through squares and matches up with winner array
-        //disableSquare
-        //togglePlayer
+- [ ] DisplayController
+    - [ ] declareWinner
+    - [ ] declaireTie
+
+- [ ] Add AI
 
 
-//checkWinner
