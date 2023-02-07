@@ -9,7 +9,8 @@
 - [ ] board controller 
     - [X] togglePlayer func
     - [X] IF square clicked add marker to square
-    - [ ] checkWinner func - winner loops through squares and matches up with winner array
+    - [X] checkWinner func - winner loops through squares and matches up with winner array
+        - [ ] Refactor checkWinner function
     - [ ] disableSquare func
 
 - [ ] start game function
