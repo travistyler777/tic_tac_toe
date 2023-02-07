@@ -12,7 +12,7 @@ const Gameboard = (() => {
         const xBoardMovesMap = xBoardMoves.map((index) => index.square);
 
         const oBoardMoves = boardmoves.map((index) => index).filter((items) => items.marker === 'O')
-        const oBoardMovesMap = xBoardMoves.map((index) => index.square);
+        const oBoardMovesMap = oBoardMoves.map((index) => index.square);
 
         //Checks both arrays for winning combos
         const xHasWinningCombination = winningmoves.some(winningCombination =>
