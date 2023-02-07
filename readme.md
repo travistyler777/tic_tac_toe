@@ -11,7 +11,7 @@
     - [X] IF square clicked add marker to square
     - [X] checkWinner func - winner loops through squares and matches up with winner array
         - [ ] Refactor checkWinner function
-    - [ ] disableSquare func
+    - [X] disableSquare func
 
 - [ ] start game function
     - [ ] button is clicked
