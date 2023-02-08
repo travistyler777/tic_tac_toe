@@ -5,15 +5,34 @@ const Players = (name, marker) => {
 const player1 = Players('Player 1', 'X');
 const player2 = Players('Player 2', 'O');
 
+
 const Gameboard = (() => {
 
     const squares = document.querySelectorAll('.square');
+    const restartBtn = document.querySelector('.restart-btn');
 
-    const gameboard = []
+    let gameboard = []
     const winningMoves = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 
     const setGameboard = (square, marker) => gameboard.push({square, marker}) 
     const getGameboard = () => gameboard;
+    const resetGameboard = () => {gameboard = []}
+
+    const resetGame = () => {
+        displayController.displayAlert("Player X's turn");
+        squares.forEach((square) => {
+            square.innerHTML = '';
+            square.classList.remove('disable');
+        })
+        boardController(player1);
+        resetGameboard();
+        //FIX
+        console.log(Gameboard.getGameboard())
+    }
+
+    restartBtn.addEventListener('click', () => {
+        resetGame();
+    })
 
     return {
         squares,
@@ -23,10 +42,10 @@ const Gameboard = (() => {
     }
 })();
 
-const boardController = (() => {
+const boardController = ((activeplayer) => {
 
     //PLayer Toggle
-    let activePlayer = player1;
+    let activePlayer = activeplayer;
 
     const toggleActivePlayer = () => activePlayer === player2 ? activePlayer = player1 : activePlayer = player2;
 
@@ -45,6 +64,7 @@ const boardController = (() => {
             //displayController.displayAlert
             //console.log(displayController.checkWinner(Gameboard.getGameboard(), Gameboard.winningMoves))
             disableDiv(square)
+            console.log(Gameboard.getGameboard());
           
             
         })
@@ -53,7 +73,9 @@ const boardController = (() => {
         activePlayer,
         disableDiv
     }
-})()
+})
+
+boardController(player1)
 
 const displayController = (() => {
 
@@ -61,6 +83,12 @@ const displayController = (() => {
 
     const displayAlert = (alert) => {
         gameDisplay.textContent = alert;
+    }
+
+    const disableAllSquares = () => {
+        Gameboard.squares.forEach((square) => {
+            square.classList.add('disable');
+        })
     }
 
     const checkWinner = (boardmoves, winningmoves, activeplayer) => {
@@ -82,24 +110,18 @@ const displayController = (() => {
     
         //Returns results of matching items
         if (xHasWinningCombination) {
-            Gameboard.squares.forEach((square) => {
-                boardController.disableDiv(square);
-            })
+            disableAllSquares()
             return displayAlert("Player 1 Wins!");
         } 
         else if(oHasWinningCombination) 
         {
-            Gameboard.squares.forEach((square) => {
-                boardController.disableDiv(square);
-            })
+            disableAllSquares()
             return displayAlert("Player 2 Wins!");
         }
         else {
             if (boardmoves.length >= 9){
-                Gameboard.squares.forEach((square) => {
-                    boardController.disableDiv(square);
-                })
-                return displayAlert("Tie Game. I'm dissapointed in you. You have failed me and have brough shame on your family name, forever dishonoring and tarnishing their legacy until the end of time.");
+                disableAllSquares()
+                return displayAlert("Tie Game. I'm dissapointed in you. You both have failed me and have brough shame on your family names, forever dishonoring and tarnishing each of their legacy's until the end of time.");
             }
             else {
                 //console.log(activeplayer);
@@ -113,4 +135,3 @@ const displayController = (() => {
         checkWinner
     }
 })()
-
