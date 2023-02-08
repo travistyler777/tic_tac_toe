@@ -1,32 +1,14 @@
 body {
-    background-color: #1c1e2b;
+
     color: #fff;
     padding-top: 30px;
 }
 
-h1 {
+h1,h2 {
     text-align: center;
+    margin-bottom: 20px;
 }
 
-.wrapper {
-    
-    background-color: #1f212e;
-    width: 920px;
-    padding: 40px;
-    margin: auto;
-    border-radius: 10px;
-}
-
-.container {
-    display: flex;
-    width: 900px;
-    margin: auto;
-}
-
-.col2 {
-    padding: 20px;
-    width: 100%;
-}
 
 label {
     margin: 10px 0 5px;
@@ -50,8 +32,7 @@ button {
 
 #gameboard-container {
     margin:auto;
-    width: 660px;
-    background-color: #292d3e;
+    width: 700px;
     display: flex;
     flex-wrap: wrap;
     padding: 5px;
@@ -60,9 +41,50 @@ button {
 .square {
     width: 200px;
     height: 200px;
-    margin: 10px;
+    margin: 15px;
     text-align: center;
-    background-color: #34394e;
+    background-color: #34424c;
+    border-radius: 10px;
+    box-shadow: 0px 15px 0px 0px #21323b;
+    -webkit-box-shadow: 0px 15px 0px 0px #21323b;
+    -moz-box-shadow: 0px 15px 0px 0px #21323b;
+    
+    transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
+
+}
+
+.square:active {
+    box-shadow: 0px 3px 0px 0px #21323b;
+    -webkit-box-shadow: 0px 3px 0px 0px #21323b;
+    -moz-box-shadow: 0px 3px 0px 0px #21323b;
+    transform: translateY(10px);
+  
+    
+}
+
+.marker {
+    width: 150px;
+    margin: 10px auto;
+}
+
+button {
+    width: 200px;
+    margin: 40px auto;
+    border: 0;
+    box-shadow: 0px 10px 0px 0px #21323b;
+    -webkit-box-shadow: 0px 10px 0px 0px #21323b;
+    -moz-box-shadow: 0px 10px 0px 0px #21323b;
+    background-color: #192229;
+    
+}
+
+button:active {
+    box-shadow: 0px 3px 0px 0px #21323b;
+    -webkit-box-shadow: 0px 3px 0px 0px #21323b;
+    -moz-box-shadow: 0px 3px 0px 0px #21323b;
+    position: relative;
+    top: 10px;
+    
 }
 
 .disable {

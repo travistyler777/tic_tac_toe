@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
+
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="scripts.js" defer></script>
     <title>Document</title>
@@ -11,10 +13,9 @@
 <body>
     <h1 class="primary-header">Tick Tack Toe</h1>
     <div class="wrapper">
-
+        <h2 id="game-display"></h2>
         <div class="container">
-            
-            <div class="col1">
+            <div>
                 <div id="gameboard-container">
                     <div class="square"></div>
                     <div class="square"></div>
@@ -27,15 +28,7 @@
                     <div class="square"></div>
                 </div>
             </div>
-            <div class="col2">
-                <form class="form">
-                    <label>Player 1 Name (X)</label>
-                    <input class="input player1-input"/>
-                    <label>Player 2 Name (O)</label>
-                    <input class="input player2-input"/>
-                    <button class="submit-btn">Start Game</button>
-                </form>
-            </div>
+            <button class="restart-btn">Restart</button>
         </div>
     </div>
     </body>

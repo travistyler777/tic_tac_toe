@@ -1,9 +1,3 @@
-const displayController = (() => {
-
-    return {
-    }
-})()
-
 const Gameboard = (() => {
 
     const squares = document.querySelectorAll('.square');
@@ -37,21 +31,21 @@ const Gameboard = (() => {
             squares.forEach((square) => {
                 boardController.disableDiv(square);
             })
-            return "XXXXXX winning combination!";
+            return "Player 1 Wins!";
         } 
         else if(oHasWinningCombination) 
         {
             squares.forEach((square) => {
                 boardController.disableDiv(square);
             })
-            return "OOOOOO winning combination!";
+            return "Player 2 Wins!";
         }
         else {
             if (boardmoves.length >= 9){
                 squares.forEach((square) => {
                     boardController.disableDiv(square);
                 })
-                return "Tie Game.";
+                return "Tie Game. I'm dissapointed in you. You have failed me and have brough shame on your family name, forever dishonoring and tarnishing their legacy until the end of time.";
             }
         }   
     }
@@ -65,16 +59,26 @@ const Gameboard = (() => {
     }
 })();
 
+const displayController = (() => {
+
+    const gameDisplay = document.querySelector('#game-display')
+
+    const displayAlert = (alert) => {
+        gameDisplay.textContent = alert;
+    }
+
+    return {
+        displayAlert
+    }
+})()
+
 
 const Players = (name, marker) => {
     return {name, marker}
 }
 
-const player1 = Players('Travis', 'X');
-const player2 = Players('Bre', 'O');
-
-
-
+const player1 = Players('Player 1', 'X');
+const player2 = Players('Player 2', 'O');
 
 
 const boardController = (() => {
@@ -92,11 +96,11 @@ const boardController = (() => {
 
     Gameboard.squares.forEach((square, index) => {
         square.addEventListener('click', () => {
-            square.textContent = activePlayer.marker;
+            square.innerHTML = activePlayer.marker === 'X' ? '<img class="marker" src="assets/x_image.png" />' : '<img class="marker" src="assets/o_image.png" />';
             Gameboard.setGameboard(index, activePlayer.marker)
             toggleActivePlayer()
             Gameboard.checkWinner(Gameboard.getGameboard(), Gameboard.winningMoves)
-            console.log(Gameboard.checkWinner(Gameboard.getGameboard(), Gameboard.winningMoves))
+            displayController.displayAlert(Gameboard.checkWinner(Gameboard.getGameboard(), Gameboard.winningMoves))
             disableDiv(square)
         })
     })
