@@ -18,17 +18,17 @@ const Gameboard = (() => {
     const getGameboard = () => gameboard;
     const resetGameboard = () => {gameboard = []}
 
-    const resetGame = () => {
-        displayController.displayAlert("Player X's turn");
-        squares.forEach((square) => {
-            square.innerHTML = '';
-            square.classList.remove('disable');
-        })
-        boardController(player1);
-        resetGameboard();
-        //FIX
-        console.log(Gameboard.getGameboard())
-    }
+    // const resetGame = () => {
+    //     displayController.displayAlert("Player X's turn");
+    //     squares.forEach((square) => {
+    //         square.innerHTML = '';
+    //         square.classList.remove('disable');
+    //     })
+    //     boardController(player1);
+    //     resetGameboard();
+    //     //FIX
+    //     console.log(Gameboard.getGameboard())
+    // }
 
     restartBtn.addEventListener('click', () => {
         resetGame();
@@ -61,10 +61,8 @@ const boardController = ((activeplayer) => {
             Gameboard.setGameboard(index, activePlayer.marker)
             toggleActivePlayer()
             displayController.checkWinner(Gameboard.getGameboard(), Gameboard.winningMoves, activePlayer)
-            //displayController.displayAlert
-            //console.log(displayController.checkWinner(Gameboard.getGameboard(), Gameboard.winningMoves))
             disableDiv(square)
-            console.log(Gameboard.getGameboard());
+
           
             
         })
@@ -91,6 +89,7 @@ const displayController = (() => {
         })
     }
 
+
     const checkWinner = (boardmoves, winningmoves, activeplayer) => {
         //Maps out move numbers in array
         const xBoardMoves = boardmoves.map((index) => index).filter((items) => items.marker === 'X')
@@ -103,6 +102,7 @@ const displayController = (() => {
         const xHasWinningCombination = winningmoves.some(winningCombination =>
             winningCombination.every(value => xBoardMovesMap.includes(value))
         );
+        
         const oHasWinningCombination = winningmoves.some(winningCombination =>
             winningCombination.every(value => oBoardMovesMap.includes(value))
         );
@@ -110,13 +110,14 @@ const displayController = (() => {
     
         //Returns results of matching items
         if (xHasWinningCombination) {
+            //console.log(xHasWinningCombination);
             disableAllSquares()
-            return displayAlert("Player 1 Wins!");
+            return displayAlert("🎉 Player 1 Wins! 🎉");
         } 
         else if(oHasWinningCombination) 
         {
             disableAllSquares()
-            return displayAlert("Player 2 Wins!");
+            return displayAlert("🎉 Player 2 Wins! 🎉");
         }
         else {
             if (boardmoves.length >= 9){
