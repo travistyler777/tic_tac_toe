@@ -1,3 +1,18 @@
+@font-face {
+    font-family: 'komika'; /*a name to be used later*/
+    src: url('assets/KOMIKAX_.ttf'); /*URL to font*/
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+}
+
+
 body {
 
     color: #fff;
@@ -23,19 +38,23 @@ input {
     width: 100%;
     display: block;
 }
-button {
-    background-color: rgb(0, 145, 255);
+ button {
+   background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+    color: #000;
+    font-weight: bold;
     border: 0;
     padding: 10px 30px;
-    border-radius: 100px;
+    border-radius: 7px;
 }
 
 #gameboard-container {
     margin:auto;
-    width: 700px;
+    width: 710px;
     display: flex;
     flex-wrap: wrap;
-    padding: 5px;
+    padding: 10px 10px 30px 10px;
+    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+    border-radius: 10px;
 }
 
 .square {
@@ -43,14 +62,13 @@ button {
     height: 200px;
     margin: 15px;
     text-align: center;
-    background-color: #34424c;
+    background-color: #11191f;
     border-radius: 10px;
     box-shadow: 0px 15px 0px 0px #21323b;
     -webkit-box-shadow: 0px 15px 0px 0px #21323b;
     -moz-box-shadow: 0px 15px 0px 0px #21323b;
-    
+    position: relative;
     transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
-
 }
 
 .square:active {
@@ -58,13 +76,34 @@ button {
     -webkit-box-shadow: 0px 3px 0px 0px #21323b;
     -moz-box-shadow: 0px 3px 0px 0px #21323b;
     transform: translateY(10px);
-  
+    background-color: none;
     
 }
 
 .marker {
-    width: 150px;
-    margin: 10px auto;
+    font-family: komika;
+    border-radius: 10px;
+    display: block;
+    width: 100%;
+    height: 200px;
+    font-size: 160px;
+    color: #41cbba;
+    line-height: 160px;
+    font-weight: bolder;
+    position: absolute; /* Position text */
+    top: 50%; /* Position text in the middle */
+    left: 50%; /* Position text in the middle */
+    transform: translate(-50%, -50%); /* Position text in the middle */
+    margin-left: 8px;
+    animation: fadeInAnimation ease 0.4s;
+}
+
+.lightup {
+    background-color: #22ebd2;
+    color: #11191f;
+}
+.lightup span {
+    color: #11191f;
 }
 
 button {

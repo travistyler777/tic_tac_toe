@@ -57,7 +57,7 @@ const boardController = ((activeplayer) => {
 
     Gameboard.squares.forEach((square, index) => {
         square.addEventListener('click', () => {
-            square.innerHTML = activePlayer.marker === 'X' ? '<img class="marker" src="assets/x_image.png" />' : '<img class="marker" src="assets/o_image.png" />';
+            square.innerHTML = activePlayer.marker === 'X' ? '<span class="marker">X</span>' : '<span class="marker">O</span>';
             Gameboard.setGameboard(index, activePlayer.marker)
             toggleActivePlayer()
             displayController.checkWinner(Gameboard.getGameboard(), Gameboard.winningMoves, activePlayer)
@@ -89,9 +89,8 @@ const displayController = (() => {
         })
     }
 
-
     const checkWinner = (boardmoves, winningmoves, activeplayer) => {
-        //Maps out move numbers in array
+        
         const xBoardMoves = boardmoves.map((index) => index).filter((items) => items.marker === 'X')
         const xBoardMovesMap = xBoardMoves.map((index) => index.square);
 
@@ -107,15 +106,23 @@ const displayController = (() => {
             winningCombination.every(value => oBoardMovesMap.includes(value))
         );
 
-    
+        const xWinningCombinationFound = winningmoves.find(winningCombination =>
+            winningCombination.every(value => xBoardMovesMap.includes(value))
+        );
+        const oWinningCombinationFound = winningmoves.find(winningCombination =>
+            winningCombination.every(value => xBoardMovesMap.includes(value))
+        );
+        
+
         //Returns results of matching items
         if (xHasWinningCombination) {
-            //console.log(xHasWinningCombination);
+            lightWinningSquares(xWinningCombinationFound)
             disableAllSquares()
             return displayAlert("🎉 Player 1 Wins! 🎉");
         } 
         else if(oHasWinningCombination) 
         {
+            console.log(oWinningCombinationFound)
             disableAllSquares()
             return displayAlert("🎉 Player 2 Wins! 🎉");
         }
@@ -130,6 +137,17 @@ const displayController = (() => {
             }
         }   
     }
+
+    const lightWinningSquares = (winningsquares) => {
+        const squareArr = winningsquares.flatMap(item => Array.from(Gameboard.squares).filter((square, index) => item === index));
+
+        squareArr.forEach((square) => {
+            square.classList.add('lightup');
+        })
+
+      };
+
+    
 
     return {
         displayAlert,
