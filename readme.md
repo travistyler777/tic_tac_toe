@@ -1,29 +1,33 @@
 
-## Program Details
-- Tic Tac Toe Game with AI
-- Practice my functional programming skills. 
+# Screenshot
+<img src="assets/tic_tac_toe_screenshot.jpg" />
 
-## Todo List
+# Program Details
+- Tic Tac Toe Game with "AI"
+- Functional programming practice project. 
+
+
+# Todo List
 - [X] set players, name, marker, active
 
-- [ ] board controller 
+- [X] board controller 
     - [X] togglePlayer func
     - [X] IF square clicked add marker to square
     - [X] checkWinner func - winner loops through squares and matches up with winner array
-        - [ ] Refactor checkWinner function
     - [X] disableSquare func
+- [X] DisplayController
+    - [X] declareWinner
+    - [X] declaireTie
+
+- [ ] reset game function
+    - [ ] reset fields
 
 - [ ] start game function
     - [ ] button is clicked
     - [ ] reset fields
 
-- [ ] reset game function
-    - [ ] reset fields
-
-- [ ] DisplayController
-    - [ ] declareWinner
-    - [ ] declaireTie
 
 - [ ] Add AI
+- [ ] Refactor checkWinner function
 
 

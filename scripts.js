@@ -110,7 +110,7 @@ const displayController = (() => {
             winningCombination.every(value => xBoardMovesMap.includes(value))
         );
         const oWinningCombinationFound = winningmoves.find(winningCombination =>
-            winningCombination.every(value => xBoardMovesMap.includes(value))
+            winningCombination.every(value => oBoardMovesMap.includes(value))
         );
         
 
@@ -122,7 +122,7 @@ const displayController = (() => {
         } 
         else if(oHasWinningCombination) 
         {
-            console.log(oWinningCombinationFound)
+            lightWinningSquares(oWinningCombinationFound)
             disableAllSquares()
             return displayAlert("🎉 Player 2 Wins! 🎉");
         }
