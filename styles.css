@@ -1,131 +1,126 @@
 @font-face {
-    font-family: 'komika'; /*a name to be used later*/
-    src: url('assets/KOMIKAX_.ttf'); /*URL to font*/
+  font-family: "komika"; /*a name to be used later*/
+  src: url("assets/KOMIKAX_.ttf"); /*URL to font*/
 }
 
 @keyframes fadeInAnimation {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-     }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
-
 
 body {
-
-    color: #fff;
-    padding-top: 30px;
+  color: #fff;
+  padding-top: 30px;
 }
 
-h1,h2 {
-    text-align: center;
-    margin-bottom: 20px;
+h1,
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
 }
-
 
 label {
-    margin: 10px 0 5px;
-    display: block;
+  margin: 10px 0 5px;
+  display: block;
 }
 
 input {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 0;
-    border-radius: 5px;
-    width: 100%;
-    display: block;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 0;
+  border-radius: 5px;
+  width: 100%;
+  display: block;
 }
- button {
-   background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
-    color: #000;
-    font-weight: bold;
-    border: 0;
-    padding: 10px 30px;
-    border-radius: 7px;
+button {
+  background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+  color: #000;
+  font-weight: bold;
+  border: 0;
+  padding: 10px 30px;
+  border-radius: 7px;
 }
 
 #gameboard-container {
-    margin:auto;
-    width: 710px;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px 10px 30px 10px;
-    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
-    border-radius: 10px;
+  margin: auto;
+  width: 710px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 10px 30px 10px;
+  background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+  border-radius: 10px;
 }
 
 .square {
-    width: 200px;
-    height: 200px;
-    margin: 15px;
-    text-align: center;
-    background-color: #11191f;
-    border-radius: 10px;
-    box-shadow: 0px 15px 0px 0px #21323b;
-    -webkit-box-shadow: 0px 15px 0px 0px #21323b;
-    -moz-box-shadow: 0px 15px 0px 0px #21323b;
-    position: relative;
-    transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
+  width: 200px;
+  height: 200px;
+  margin: 15px;
+  text-align: center;
+  background-color: #11191f;
+  border-radius: 10px;
+  box-shadow: 0px 15px 0px 0px #21323b;
+  -webkit-box-shadow: 0px 15px 0px 0px #21323b;
+  -moz-box-shadow: 0px 15px 0px 0px #21323b;
+  position: relative;
+  transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
 }
 
 .square:active {
-    box-shadow: 0px 3px 0px 0px #21323b;
-    -webkit-box-shadow: 0px 3px 0px 0px #21323b;
-    -moz-box-shadow: 0px 3px 0px 0px #21323b;
-    transform: translateY(10px);
-    background-color: none;
-    
+  box-shadow: 0px 3px 0px 0px #21323b;
+  -webkit-box-shadow: 0px 3px 0px 0px #21323b;
+  -moz-box-shadow: 0px 3px 0px 0px #21323b;
+  transform: translateY(10px);
+  background-color: none;
 }
 
 .marker {
-    font-family: komika;
-    border-radius: 10px;
-    display: block;
-    width: 100%;
-    height: 200px;
-    font-size: 160px;
-    color: #41cbba;
-    line-height: 160px;
-    font-weight: bolder;
-    position: absolute; /* Position text */
-    top: 50%; /* Position text in the middle */
-    left: 50%; /* Position text in the middle */
-    transform: translate(-50%, -50%); /* Position text in the middle */
-    margin-left: 8px;
-    animation: fadeInAnimation ease 0.4s;
+  font-family: komika;
+  border-radius: 10px;
+  display: block;
+  width: 100%;
+  height: 200px;
+  font-size: 160px;
+  color: #41cbba;
+  line-height: 160px;
+  font-weight: bolder;
+  position: absolute; /* Position text */
+  top: 50%; /* Position text in the middle */
+  left: 50%; /* Position text in the middle */
+  transform: translate(-50%, -50%); /* Position text in the middle */
+  margin-left: 8px;
+  animation: fadeInAnimation ease 0.4s;
 }
 
 .lightup {
-    background-color: #22ebd2;
-    color: #11191f;
+  background-color: #22ebd2;
+  color: #11191f;
 }
 .lightup span {
-    color: #11191f;
+  color: #11191f;
 }
 
 button {
-    width: 200px;
-    margin: 40px auto;
-    border: 0;
-    box-shadow: 0px 10px 0px 0px #21323b;
-    -webkit-box-shadow: 0px 10px 0px 0px #21323b;
-    -moz-box-shadow: 0px 10px 0px 0px #21323b;
-    background-color: #192229;
-    
+  width: 200px;
+  margin: 40px auto;
+  border: 0;
+  box-shadow: 0px 10px 0px 0px #21323b;
+  -webkit-box-shadow: 0px 10px 0px 0px #21323b;
+  -moz-box-shadow: 0px 10px 0px 0px #21323b;
+  background-color: #192229;
 }
 
 button:active {
-    box-shadow: 0px 3px 0px 0px #21323b;
-    -webkit-box-shadow: 0px 3px 0px 0px #21323b;
-    -moz-box-shadow: 0px 3px 0px 0px #21323b;
-    position: relative;
-    top: 10px;
-    
+  box-shadow: 0px 3px 0px 0px #21323b;
+  -webkit-box-shadow: 0px 3px 0px 0px #21323b;
+  -moz-box-shadow: 0px 3px 0px 0px #21323b;
+  position: relative;
+  top: 10px;
 }
 
 .disable {
-    pointer-events: none;
+  pointer-events: none;
 }
