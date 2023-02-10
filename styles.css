@@ -33,6 +33,10 @@ h2 {
   margin: 20px;
 }
 
+.hide {
+  display: none;
+}
+
 /* GAMEBOARD -------- */
 #gameboard-container {
   margin: auto;
@@ -92,6 +96,19 @@ h2 {
   animation: fadeInAnimation ease 0.4s;
 }
 
+.marker-pointer {
+  position: absolute;
+  font-size: 45px;
+  left: -25px;
+  transition: transform 200ms ease-in-out;
+}
+.pointer-position1 {
+  transform: translateY(0px);
+}
+.pointer-position2 {
+  transform: translateY(85px);
+}
+
 .lightup {
   background-color: #22ebd2;
   color: #11191f;
@@ -106,6 +123,7 @@ h2 {
   border: 1px solid #384956;
   padding: 30px;
   border-radius: 10px;
+  position: relative;
 }
 
 #game-display {

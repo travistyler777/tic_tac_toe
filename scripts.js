@@ -1,31 +1,4 @@
 
-const startGame = (startBool) => {
- 
-  let start = startBool;
-  const startBtn = document.querySelector('.start-btn')
-  const player1Input = document.querySelector('.player1-input') 
-  const player2Input = document.querySelector('.player2-input')
-
-  startBtn.addEventListener('click', (e) => {
-    e.preventDefault()
-    start = true;
-    player1 = Players(player1Input.value, "X");
-    player2 = Players(player2Input.value, "O");
-    displayController.displayAlert(`${player1.name}'s turn`)
-    console.log(start)
-  })
-  console.log(start);
-  return {start}
-}
-
-const Players = (name, marker) => {
-
-  return { name, marker };
-};
-
-let player1 = Players("Player 1", "X");
-let player2 = Players("Player 2", "O");
-
 const Gameboard = (() => {
   //Return if start button is not clicked
 
@@ -53,8 +26,17 @@ const Gameboard = (() => {
       square.classList.remove('disable');
       square.classList.remove('lightup');
     })
-    displayController.displayAlert("Enter Player Names")
+    displayController.markerPointer.classList.remove('pointer-position2')
+    displayController.markerPointer.classList.remove('pointer-position1')
+    displayController.markerPointer.classList.add('hide')
+    displayController.displayAlert("Enter Name's")
     boardController.activePlayer = player1;
+    displayController.player1Input.disabled = false;
+    displayController.player2Input.disabled = false;
+    displayController.player1Input.value = '';
+    displayController.player2Input.value = '';
+
+
   }
   
   const setGameboard = (square, marker) => gameboard.push({ square, marker });
@@ -80,10 +62,20 @@ const boardController = (activeplayer) => {
   //PLayer Toggle
   let activePlayer = activeplayer;
 
-  const toggleActivePlayer = () =>
-    activePlayer === player2
-      ? (activePlayer = player1)
-      : (activePlayer = player2);
+  const toggleActivePlayer = () => {
+    if (activePlayer === player2) {
+      console.log(displayController.markerPointer)
+      displayController.markerPointer.classList.remove('pointer-position2')
+      displayController.markerPointer.classList.add('pointer-position1')
+      activePlayer = player1
+    }
+    else {
+      activePlayer = player2
+      displayController.markerPointer.classList.remove('pointer-position1')
+      displayController.markerPointer.classList.add('pointer-position2')
+    }
+  }
+   
 
   const disableDiv = (div) => {
     div.classList.add("disable");
@@ -121,6 +113,10 @@ const boardController = (activeplayer) => {
 const displayController = (() => {
 
   const gameDisplay = document.querySelector("#game-display");
+  const markerPointer = document.querySelector('.marker-pointer')
+  const startBtn = document.querySelector('.start-btn')
+  const player1Input = document.querySelector('.player1-input') 
+  const player2Input = document.querySelector('.player2-input')
 
   const displayAlert = (alert) => {
     gameDisplay.textContent = alert;
@@ -184,33 +180,41 @@ const displayController = (() => {
         if (Date.now() < end) {
           requestAnimationFrame(frame);
         }
+
       }());
     }
+ 
     
 
     //Returns results of matching items
     if (xHasWinningCombination) {
-      lightWinningSquares(xWinningCombinationFound);
-      triggerConfetti();
-      disableAllSquares();
-      return displayAlert(`🎉 ${player1.name} wins!`);
-    } else if (oHasWinningCombination) {
-      lightWinningSquares(oWinningCombinationFound);
-      triggerConfetti();
-      disableAllSquares();
-      return displayAlert(`🎉 ${player2.name} wins!`);
-    } else {
-      if (boardmoves.length >= 9) {
+        lightWinningSquares(xWinningCombinationFound);
+        triggerConfetti();
         disableAllSquares();
-        return displayAlert(
-          "Tie Game!"
-        );
-      } else {
-        //console.log(activeplayer);
-        return activeplayer === player1
-          ? displayAlert(`${player1.name}'s turn`)
-          : displayAlert(`${player2.name}'s turn`);
-      }
+        displayController.markerPointer.classList.remove('pointer-position2')
+        displayController.markerPointer.classList.add('pointer-position1')
+        console.log(displayController.markerPointer)
+        return displayAlert(`🎉 ${player1.name} wins!`);
+    } else if (oHasWinningCombination) {
+        lightWinningSquares(oWinningCombinationFound);
+        displayController.markerPointer.classList.remove('pointer-position1')
+        displayController.markerPointer.classList.add('pointer-position2')
+        triggerConfetti();
+        disableAllSquares();
+        return displayAlert(`🎉 ${player2.name} wins!`);
+    } else {
+        if (boardmoves.length >= 9) {
+          disableAllSquares();
+          displayController.markerPointer.classList.add('hide')
+          return displayAlert(
+            "Tie Game!"
+          );
+        } else {
+          //console.log(activeplayer);
+          return activeplayer === player1
+            ? displayAlert(`${player1.name}'s turn`)
+            : displayAlert(`${player2.name}'s turn`);
+        }
     }
   };
 
@@ -224,11 +228,41 @@ const displayController = (() => {
     });
   };
 
+
   return {
     displayAlert,
     checkWinner,
+    startBtn,
+    markerPointer,
+    player1Input,
+    player2Input
   };
 })();
 
+const startGame = (() => {
+  
+  let start = false;
+  
+  displayController.startBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    start = true;
+    displayController.markerPointer.classList.remove('hide')
+    player1 = Players(displayController.player1Input.value, "X");
+    player2 = Players(displayController.player2Input.value, "O");
+    displayController.player1Input.disabled = true;
+    displayController.player2Input.disabled = true;
+    displayController.displayAlert(`${player1.name}'s turn`)
+  })
+  return {start}
+})()
+
+
+const Players = (name, marker) => {
+
+  return { name, marker };
+};
+
+let player1 = Players("Player 1", "X");
+let player2 = Players("Player 2", "O");
+
 boardController(player1);
-startGame(false)
