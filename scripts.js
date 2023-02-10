@@ -22,8 +22,7 @@ const Gameboard = (() => {
     [2, 4, 6],
   ]; 
 
-  
-  
+
   const clear = () => {
     gameboard.length = 0;
     squares.forEach((square) => {
@@ -139,16 +138,16 @@ const displayController = (() => {
     if (xHasWinningCombination) {
       lightWinningSquares(xWinningCombinationFound);
       disableAllSquares();
-      return displayAlert("🎉 Player 1 Wins! 🎉");
+      return displayAlert("🎉 Player 1 Wins!");
     } else if (oHasWinningCombination) {
       lightWinningSquares(oWinningCombinationFound);
       disableAllSquares();
-      return displayAlert("🎉 Player 2 Wins! 🎉");
+      return displayAlert("🎉 Player 2 Wins!");
     } else {
       if (boardmoves.length >= 9) {
         disableAllSquares();
         return displayAlert(
-          "Tie Game. I'm dissapointed in you. You both have failed me and have brough shame on your family names, forever dishonoring and tarnishing each of their legacy's until the end of time."
+          "Tie Game!"
         );
       } else {
         //console.log(activeplayer);

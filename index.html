@@ -14,24 +14,35 @@
     <title>Document</title>
   </head>
   <body>
-    <h1 class="primary-header">Tic Tac Toe</h1>
     <div class="wrapper">
-      <h2 id="game-display">Player X's turn</h2>
       <div class="container">
-        <div>
-          <div id="gameboard-container">
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
+        <h1 class="primary-header">Tic Tac Toe</h1>
+        <div class="row">
+          <div class="col1">
+            <div id="gameboard-container">
+              <div class="square"></div>
+              <div class="square"></div>
+              <div class="square"></div>
+              <div class="square"></div>
+              <div class="square"></div>
+              <div class="square"></div>
+              <div class="square"></div>
+              <div class="square"></div>
+              <div class="square"></div>
+            </div>
+          </div>
+          <div class="col2">
+            <div id="sidebar">
+              <h2 id="game-display">Player X's turn</h2>
+              <form>
+                <input type="text" placeholder="Player 1 Name"/>
+                <input type="text" placeholder="PLayer 2 Name"/>
+                <button class="start-btn">Start</button>
+              </form>
+              <button class="restart-btn">Restart</button>
+            </div>
           </div>
         </div>
-        <button class="restart-btn">Restart</button>
       </div>
     </div>
   </body>

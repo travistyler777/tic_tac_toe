@@ -19,8 +19,8 @@
     - [X] declareWinner
     - [X] declaireTie
 
-- [ ] reset game function
-    - [ ] reset fields
+- [X] reset game function
+    - [X] reset fields
 
 - [ ] start game function
     - [ ] button is clicked
