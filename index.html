@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <link
       rel="stylesheet"
       href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css"
@@ -33,10 +34,10 @@
           </div>
           <div class="col2">
             <div id="sidebar">
-              <h2 id="game-display">Player X's turn</h2>
+              <h2 id="game-display">Enter Name's</h2>
               <form>
-                <input type="text" placeholder="Player 1 Name"/>
-                <input type="text" placeholder="PLayer 2 Name"/>
+                <input type="text" placeholder="Player 1 Name" class="player1-input"/>
+                <input type="text" placeholder="PLayer 2 Name" class="player2-input"/>
                 <button class="start-btn">Start</button>
               </form>
               <button class="restart-btn">Restart</button>

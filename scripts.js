@@ -1,14 +1,37 @@
+
+const startGame = (startBool) => {
+ 
+  let start = startBool;
+  const startBtn = document.querySelector('.start-btn')
+  const player1Input = document.querySelector('.player1-input') 
+  const player2Input = document.querySelector('.player2-input')
+
+  startBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    start = true;
+    player1 = Players(player1Input.value, "X");
+    player2 = Players(player2Input.value, "O");
+    displayController.displayAlert(`${player1.name}'s turn`)
+    console.log(start)
+  })
+  console.log(start);
+  return {start}
+}
+
 const Players = (name, marker) => {
+
   return { name, marker };
 };
 
-const player1 = Players("Player 1", "X");
-const player2 = Players("Player 2", "O");
+let player1 = Players("Player 1", "X");
+let player2 = Players("Player 2", "O");
 
 const Gameboard = (() => {
+  //Return if start button is not clicked
+
+
   const squares = document.querySelectorAll(".square");
   const restartBtn = document.querySelector(".restart-btn");
-
 
   let gameboard = [];
   const winningMoves = [
@@ -30,7 +53,7 @@ const Gameboard = (() => {
       square.classList.remove('disable');
       square.classList.remove('lightup');
     })
-    displayController.displayAlert("Player X's turn")
+    displayController.displayAlert("Enter Player Names")
     boardController.activePlayer = player1;
   }
   
@@ -51,6 +74,9 @@ const Gameboard = (() => {
 })();
 
 const boardController = (activeplayer) => {
+
+
+
   //PLayer Toggle
   let activePlayer = activeplayer;
 
@@ -82,8 +108,8 @@ const boardController = (activeplayer) => {
         Gameboard.winningMoves,
         activePlayer
       );
+
       disableDiv(square);
-      console.log(Gameboard.gameboard)
     });
   });
   return {
@@ -92,9 +118,8 @@ const boardController = (activeplayer) => {
   };
 };
 
-boardController(player1);
-
 const displayController = (() => {
+
   const gameDisplay = document.querySelector("#game-display");
 
   const displayAlert = (alert) => {
@@ -134,15 +159,46 @@ const displayController = (() => {
       winningCombination.every((value) => oBoardMovesMap.includes(value))
     );
 
+    const triggerConfetti = () => {
+      // do this for 30 seconds
+      let duration = 2 * 1000;
+      let end = Date.now() + duration;
+
+      (function frame() {
+        // launch a few confetti from the left edge
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        // and launch a few from the right edge
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
+
+        // keep going until we are out of time
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    }
+    
+
     //Returns results of matching items
     if (xHasWinningCombination) {
       lightWinningSquares(xWinningCombinationFound);
+      triggerConfetti();
       disableAllSquares();
-      return displayAlert("🎉 Player 1 Wins!");
+      return displayAlert(`🎉 ${player1.name} wins!`);
     } else if (oHasWinningCombination) {
       lightWinningSquares(oWinningCombinationFound);
+      triggerConfetti();
       disableAllSquares();
-      return displayAlert("🎉 Player 2 Wins!");
+      return displayAlert(`🎉 ${player2.name} wins!`);
     } else {
       if (boardmoves.length >= 9) {
         disableAllSquares();
@@ -152,8 +208,8 @@ const displayController = (() => {
       } else {
         //console.log(activeplayer);
         return activeplayer === player1
-          ? displayAlert("Player X's turn")
-          : displayAlert("Player O's turn");
+          ? displayAlert(`${player1.name}'s turn`)
+          : displayAlert(`${player2.name}'s turn`);
       }
     }
   };
@@ -173,3 +229,6 @@ const displayController = (() => {
     checkWinner,
   };
 })();
+
+boardController(player1);
+startGame(false)
