@@ -195,7 +195,6 @@ const displayController = (() => {
         disableAllSquares();
         displayController.markerPointer.classList.remove('pointer-position2')
         displayController.markerPointer.classList.add('pointer-position1')
-        console.log(displayController.markerPointer)
         return displayAlert(`🎉 ${player1.name} wins!`);
     } else if (oHasWinningCombination) {
         lightWinningSquares(oWinningCombinationFound);
@@ -212,7 +211,6 @@ const displayController = (() => {
             "Tie Game!"
           );
         } else {
-          //console.log(activeplayer);
           return activeplayer === player1
             ? displayAlert(`${player1.name}'s turn`)
             : displayAlert(`${player2.name}'s turn`);
