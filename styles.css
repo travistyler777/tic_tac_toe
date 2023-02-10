@@ -36,6 +36,9 @@ h2 {
 .hide {
   display: none;
 }
+.disable {
+  pointer-events:none;
+}
 
 /* GAMEBOARD -------- */
 #gameboard-container {

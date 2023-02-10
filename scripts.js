@@ -2,7 +2,6 @@
 const Gameboard = (() => {
   //Return if start button is not clicked
 
-
   const squares = document.querySelectorAll(".square");
   const restartBtn = document.querySelector(".restart-btn");
 
@@ -18,6 +17,9 @@ const Gameboard = (() => {
     [2, 4, 6],
   ]; 
 
+  
+ 
+
 
   const clear = () => {
     gameboard.length = 0;
@@ -25,6 +27,7 @@ const Gameboard = (() => {
       square.innerHTML = '';
       square.classList.remove('disable');
       square.classList.remove('lightup');
+      square.classList.add('disable');
     })
     displayController.markerPointer.classList.remove('pointer-position2')
     displayController.markerPointer.classList.remove('pointer-position1')
@@ -64,7 +67,6 @@ const boardController = (activeplayer) => {
 
   const toggleActivePlayer = () => {
     if (activePlayer === player2) {
-      console.log(displayController.markerPointer)
       displayController.markerPointer.classList.remove('pointer-position2')
       displayController.markerPointer.classList.add('pointer-position1')
       activePlayer = player1
@@ -239,21 +241,31 @@ const displayController = (() => {
   };
 })();
 
-const startGame = (() => {
-  
-  let start = false;
-  
-  displayController.startBtn.addEventListener('click', (e) => {
-    e.preventDefault()
-    start = true;
-    displayController.markerPointer.classList.remove('hide')
-    player1 = Players(displayController.player1Input.value, "X");
-    player2 = Players(displayController.player2Input.value, "O");
-    displayController.player1Input.disabled = true;
-    displayController.player2Input.disabled = true;
-    displayController.displayAlert(`${player1.name}'s turn`)
-  })
-  return {start}
+const startGame = (() => { 
+    let start = false;
+    displayController.startBtn.addEventListener('click', (e) => {
+      e.preventDefault()
+      if(displayController.player1Input.value === '')
+      {
+        displayController.displayAlert("❗️Player 1 Name!")
+        return;
+      }
+      else if(displayController.player2Input.value === '') {
+        displayController.displayAlert("❗️Player 2 Name!")
+        return;
+      }
+      Gameboard.squares.forEach((square) => {
+        square.classList.remove('disable');
+      })
+      start = true;
+      displayController.markerPointer.classList.remove('hide')
+      player1 = Players(displayController.player1Input.value, "X");
+      player2 = Players(displayController.player2Input.value, "O");
+      displayController.player1Input.disabled = true;
+      displayController.player2Input.disabled = true;
+      displayController.displayAlert(`${player1.name}'s turn`)
+    })
+    return {start}
 })()
 
 
@@ -266,3 +278,4 @@ let player1 = Players("Player 1", "X");
 let player2 = Players("Player 2", "O");
 
 boardController(player1);
+Gameboard.clear();
