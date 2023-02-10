@@ -8,9 +8,9 @@
 
 
 # Todo List
-- [X] set players, name, marker, active
+- [X] Set players, name, marker, active
 
-- [X] board controller 
+- [X] Board controller 
     - [X] togglePlayer func
     - [X] IF square clicked add marker to square
     - [X] checkWinner func - winner loops through squares and matches up with winner array
@@ -19,15 +19,16 @@
     - [X] declareWinner
     - [X] declaireTie
 
-- [X] reset game function
-    - [X] reset fields
+- [X] Reset game function
+    - [X] Reset button
 
-- [ ] start game function
-    - [ ] button is clicked
-    - [ ] reset fields
+- [X] start game function
+    - [X] Sart button
 
 
 - [ ] Add AI
 - [ ] Refactor checkWinner function
 
+- [ ] Fix mobile responsive
+- [ ] Refactor
 
