@@ -1,4 +1,3 @@
-
 const Gameboard = (() => {
   //Return if start button is not clicked
 
@@ -15,33 +14,27 @@ const Gameboard = (() => {
     [2, 5, 8],
     [0, 4, 8],
     [2, 4, 6],
-  ]; 
-
-  
- 
-
+  ];
 
   const clear = () => {
     gameboard.length = 0;
     squares.forEach((square) => {
-      square.innerHTML = '';
-      square.classList.remove('disable');
-      square.classList.remove('lightup');
-      square.classList.add('disable');
-    })
-    displayController.markerPointer.classList.remove('pointer-position2')
-    displayController.markerPointer.classList.remove('pointer-position1')
-    displayController.markerPointer.classList.add('hide')
-    displayController.displayAlert("Enter Name's")
+      square.innerHTML = "";
+      square.classList.remove("disable");
+      square.classList.remove("lightup");
+      square.classList.add("disable");
+    });
+    displayController.markerPointer.classList.remove("pointer-position2");
+    displayController.markerPointer.classList.remove("pointer-position1");
+    displayController.markerPointer.classList.add("hide");
+    displayController.displayAlert("Enter Name's");
     boardController.activePlayer = player1;
     displayController.player1Input.disabled = false;
     displayController.player2Input.disabled = false;
-    displayController.player1Input.value = '';
-    displayController.player2Input.value = '';
+    displayController.player1Input.value = "";
+    displayController.player2Input.value = "";
+  };
 
-
-  }
-  
   const setGameboard = (square, marker) => gameboard.push({ square, marker });
   const getGameboard = () => gameboard;
 
@@ -52,40 +45,32 @@ const Gameboard = (() => {
     setGameboard,
     getGameboard,
     winningMoves,
-    clear
+    clear,
   };
-
-
 })();
 
 const boardController = (activeplayer) => {
-
-
-
   //PLayer Toggle
   let activePlayer = activeplayer;
 
   const toggleActivePlayer = () => {
     if (activePlayer === player2) {
-      displayController.markerPointer.classList.remove('pointer-position2')
-      displayController.markerPointer.classList.add('pointer-position1')
-      activePlayer = player1
+      displayController.markerPointer.classList.remove("pointer-position2");
+      displayController.markerPointer.classList.add("pointer-position1");
+      activePlayer = player1;
+    } else {
+      activePlayer = player2;
+      displayController.markerPointer.classList.remove("pointer-position1");
+      displayController.markerPointer.classList.add("pointer-position2");
     }
-    else {
-      activePlayer = player2
-      displayController.markerPointer.classList.remove('pointer-position1')
-      displayController.markerPointer.classList.add('pointer-position2')
-    }
-  }
-   
+  };
 
   const disableDiv = (div) => {
     div.classList.add("disable");
   };
 
- 
-  Gameboard.restartBtn.addEventListener('click', () => {
-    Gameboard.clear()
+  Gameboard.restartBtn.addEventListener("click", () => {
+    Gameboard.clear();
   });
   //Click Squares
 
@@ -113,12 +98,11 @@ const boardController = (activeplayer) => {
 };
 
 const displayController = (() => {
-
   const gameDisplay = document.querySelector("#game-display");
-  const markerPointer = document.querySelector('.marker-pointer')
-  const startBtn = document.querySelector('.start-btn')
-  const player1Input = document.querySelector('.player1-input') 
-  const player2Input = document.querySelector('.player2-input')
+  const markerPointer = document.querySelector(".marker-pointer");
+  const startBtn = document.querySelector(".start-btn");
+  const player1Input = document.querySelector(".player1-input");
+  const player2Input = document.querySelector(".player2-input");
 
   const displayAlert = (alert) => {
     gameDisplay.textContent = alert;
@@ -168,53 +152,48 @@ const displayController = (() => {
           particleCount: 5,
           angle: 60,
           spread: 55,
-          origin: { x: 0 }
+          origin: { x: 0 },
         });
         // and launch a few from the right edge
         confetti({
           particleCount: 5,
           angle: 120,
           spread: 55,
-          origin: { x: 1 }
+          origin: { x: 1 },
         });
 
         // keep going until we are out of time
         if (Date.now() < end) {
           requestAnimationFrame(frame);
         }
-
-      }());
-    }
- 
-    
+      })();
+    };
 
     //Returns results of matching items
     if (xHasWinningCombination) {
-        lightWinningSquares(xWinningCombinationFound);
-        triggerConfetti();
-        disableAllSquares();
-        displayController.markerPointer.classList.remove('pointer-position2')
-        displayController.markerPointer.classList.add('pointer-position1')
-        return displayAlert(`🎉 ${player1.name} wins!`);
+      lightWinningSquares(xWinningCombinationFound);
+      triggerConfetti();
+      disableAllSquares();
+      displayController.markerPointer.classList.remove("pointer-position2");
+      displayController.markerPointer.classList.add("pointer-position1");
+      return displayAlert(`🎉 ${player1.name} wins!`);
     } else if (oHasWinningCombination) {
-        lightWinningSquares(oWinningCombinationFound);
-        displayController.markerPointer.classList.remove('pointer-position1')
-        displayController.markerPointer.classList.add('pointer-position2')
-        triggerConfetti();
-        disableAllSquares();
-        return displayAlert(`🎉 ${player2.name} wins!`);
+      lightWinningSquares(oWinningCombinationFound);
+      displayController.markerPointer.classList.remove("pointer-position1");
+      displayController.markerPointer.classList.add("pointer-position2");
+      triggerConfetti();
+      disableAllSquares();
+      return displayAlert(`🎉 ${player2.name} wins!`);
     } else {
-        if (boardmoves.length >= 9) {
-          disableAllSquares();
-          displayController.markerPointer.classList.add('hide')
-          return displayAlert(
-            "Tie Game!"
-          );
-        } else {
-          return activeplayer === player1
-            ? displayAlert(`${player1.name}'s turn`)
-            : displayAlert(`${player2.name}'s turn`);
-        }
+      if (boardmoves.length >= 9) {
+        disableAllSquares();
+        displayController.markerPointer.classList.add("hide");
+        return displayAlert("Tie Game!");
+      } else {
+        return activeplayer === player1
+          ? displayAlert(`${player1.name}'s turn`)
+          : displayAlert(`${player2.name}'s turn`);
+      }
     }
   };
 
@@ -228,47 +207,42 @@ const displayController = (() => {
     });
   };
 
-
   return {
     displayAlert,
     checkWinner,
     startBtn,
     markerPointer,
     player1Input,
-    player2Input
+    player2Input,
   };
 })();
 
-const startGame = (() => { 
-    let start = false;
-    displayController.startBtn.addEventListener('click', (e) => {
-      e.preventDefault()
-      if(displayController.player1Input.value === '')
-      {
-        displayController.displayAlert("❗️Player 1 Name!")
-        return;
-      }
-      else if(displayController.player2Input.value === '') {
-        displayController.displayAlert("❗️Player 2 Name!")
-        return;
-      }
-      Gameboard.squares.forEach((square) => {
-        square.classList.remove('disable');
-      })
-      start = true;
-      displayController.markerPointer.classList.remove('hide')
-      player1 = Players(displayController.player1Input.value, "X");
-      player2 = Players(displayController.player2Input.value, "O");
-      displayController.player1Input.disabled = true;
-      displayController.player2Input.disabled = true;
-      displayController.displayAlert(`${player1.name}'s turn`)
-    })
-    return {start}
-})()
-
+const startGame = (() => {
+  let start = false;
+  displayController.startBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (displayController.player1Input.value === "") {
+      displayController.displayAlert("❗️Player 1 Name!");
+      return;
+    } else if (displayController.player2Input.value === "") {
+      displayController.displayAlert("❗️Player 2 Name!");
+      return;
+    }
+    Gameboard.squares.forEach((square) => {
+      square.classList.remove("disable");
+    });
+    start = true;
+    displayController.markerPointer.classList.remove("hide");
+    player1 = Players(displayController.player1Input.value, "X");
+    player2 = Players(displayController.player2Input.value, "O");
+    displayController.player1Input.disabled = true;
+    displayController.player2Input.disabled = true;
+    displayController.displayAlert(`${player1.name}'s turn`);
+  });
+  return { start };
+})();
 
 const Players = (name, marker) => {
-
   return { name, marker };
 };
 
