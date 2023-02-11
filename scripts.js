@@ -77,14 +77,15 @@ const boardController = (activeplayer) => {
     Gameboard.clear();
   });
 
-    //Click Squares
-    Gameboard.squares.forEach((square, index) => {
+  
+  
+  //Gameboard Squares
+  Gameboard.squares.forEach((square, index) => {
       square.addEventListener("click", () => {
 
-        if (displayController.botCheck)
+        if (!botController.bot)
         {
 
-          console.log(displayController.botCheck)
           //Add marker symbol to square
           square.innerHTML =
             activePlayer.marker === "X"
@@ -109,8 +110,45 @@ const boardController = (activeplayer) => {
 
         }
         else {
-          console.log(displayController.botCheck)
+          console.log(activePlayer, player1)
+          console.log('HEY')
+          if(activePlayer === player1)
+          {
+            console.log('human turn')
+            //Add marker symbol to square
+            square.innerHTML =
+            activePlayer.marker === "X"
+              ? '<span class="marker">X</span>'
+              : '<span class="marker">O</span>';
+          
+          //Add marker to gameboard Array
+          Gameboard.setGameboard(index, activePlayer.marker);
+          
+          //Toggle player
+          toggleActivePlayer();
+          //Check winner
+          displayController.checkWinner(
+            Gameboard.getGameboard(),
+            Gameboard.winningMoves,
+            activePlayer
+          );
 
+          //Disable square
+          disableDiv(square);
+          }
+
+          else {
+            console.log('bot turn')
+          }
+
+          botController.botCalc();
+
+          toggleActivePlayer()
+          displayController.checkWinner(
+            Gameboard.getGameboard(),
+            Gameboard.winningMoves,
+            activePlayer
+          );
         }
       });
     });
@@ -250,14 +288,8 @@ const botController = (() => {
   
   const botToggle = document.querySelector('.switch-button-checkbox')
   
-  
   botToggle.addEventListener('click', () => {
-    
-    //console.log(botToggle.checked)
-
     bot = botToggle.checked;
-
-    //console.log(bot);
     
     if(bot) {
       displayController.player2Input.placeholder="Bot Name";
@@ -265,15 +297,27 @@ const botController = (() => {
     else {
       displayController.player2Input.placeholder="Player 2 Name";
     };
-
   });
+
+  const botCalc = (square) => {
+
+      //look at available squares
+      //randomly pick a number in the squares
+      //push marker to array
+      //display marker on square
+
+      
+  
+      // Gameboard.setGameboard(index, boardController.activePlayer.marker);
+
+      // square.textContent = 'O'
+
 
 
   return {
-    get bot() {
-      return bot;
+    get bot() {return bot;}, 
+    botCalc
     }
-}
 
 
 })();
@@ -285,7 +329,6 @@ const startGame = (() => {
     //Prevent form from reloading screen
     e.preventDefault();
   
-    console.log(botController.bot)
     //Clear disables buttons
     Gameboard.squares.forEach((square) => {
       square.classList.remove("disable");
@@ -300,6 +343,7 @@ const startGame = (() => {
     player1 = Players(displayController.player1Input.value, "X");
     player2 = Players(displayController.player2Input.value, "O");
    
+
     //Disable Elements
     displayController.player1Input.disabled = true;
     displayController.player2Input.disabled = true;
@@ -313,6 +357,8 @@ const startGame = (() => {
       displayController.displayAlert("❗️Player 2 Name!");
       return;
     }
+
+    console.log(player1)
   });
   return { start };
 })();
