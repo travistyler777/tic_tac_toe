@@ -61,7 +61,6 @@ h2 {
 
 .square {
   width: 208px;
-  height: 208px;
   margin: 15px;
   text-align: center;
   background-color: #11191f;
@@ -71,6 +70,8 @@ h2 {
   -moz-box-shadow: 0px 15px 0px 0px #21323b;
   position: relative;
   transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
+  aspect-ratio: 1 / 1;
+  
 }
 
 .square:active {
@@ -139,7 +140,7 @@ h2 {
   background: #385061;
   border-radius: 30px;
   overflow: hidden;
-  width: 100%;
+  width: 280px;
   text-align: center;
   font-size: 18px;
   letter-spacing: 1px;
@@ -212,14 +213,45 @@ form {
   margin-bottom: 5px;
 }
 
-.start-btn {
+#start-btn {
   background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
   color: #000;
   font-weight: bold;
   border: 0;
 }
 
-button.restart-btn {
-  background-color: #1b262e;
+#restart-btn {
+  background-color: #1b2730;
   border: 1px solid #384956;
+}
+
+$media-desktop: "only screen and (max-width : 1200px)";
+$media-tablet: "only screen and (max-width : 768px)";
+$media-mobile: "only screen and (max-width : 576px)";
+
+.container {
+  @media #{$media-desktop} {
+    max-width: 100%;
+  }
+  
+}
+
+
+.col1 {
+  @media #{$media-desktop} {
+    width: 100%;
+  }
+}
+.col2 {
+  @media #{$media-desktop} {
+    width: 100%;
+  }
+}
+.square {
+  @media #{$media-desktop} {
+    width: 30%;
+  }
+  @media #{$media-tablet} {
+    width: 28%;
+  }
 }
