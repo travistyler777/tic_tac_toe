@@ -42,21 +42,10 @@ const gameView = (() => {
 
   const addMarkerToSquare = (square, marker) => square.innerHTML = `<span class="marker">${marker}</span>`;
 
-  const lightWinningSquares = (boardSquares, winningMoves) => {
-    const squareArr = winningMoves.flatMap((item) =>
-      Array.from(boardSquares).filter((square, index) => item === index)
-    );
-
-    squareArr.forEach((square) => {
-      square.classList.add("lightup");
-    });
-  };
 
   const displayWinner = () => {
     
   }
-
-  
 
   const triggerConfetti = () => {
     // do this for 30 seconds
@@ -97,7 +86,8 @@ const gameView = (() => {
     markerPointer,
     startBtn,
     restartBtn,
-    addMarkerToSquare
+    addMarkerToSquare,
+    triggerConfetti
 
   };
 })();
@@ -130,6 +120,14 @@ const gameController = (() => {
   }
 
 
+  const lightWinningSquares = (winningSquares) => {
+    winningSquares.forEach((id) => {
+      gameView.boardSquares[id].classList.add('lightup');
+    })
+ 
+  };
+
+
   const checkWinner = (boardMoves, winningMoves) => {
 
         // console.log(boardMoves);
@@ -141,8 +139,6 @@ const gameController = (() => {
         const oBoardMoves = boardMoves.map((index) => index).filter((items) => items.marker === "O");
         const oBoardMovesMap = oBoardMoves.map((index) => index.square);
 
-        
-        
 
         //Checks both arrays for winning combos
         const xHasWinningCombination = winningMoves.some((winningCombination) => 
@@ -164,11 +160,16 @@ const gameController = (() => {
         if (xHasWinningCombination) {
             //console.log(player1)
             disableAllSquares()
-            console.log(lightWinningSquares(boardSquares, xFindWinningCombination))
+            lightWinningSquares(xFindWinningCombination)
+            gameView.triggerConfetti()
+
+
         } else if (oHasWinningCombination) {
             //console.log(player2) 
             disableAllSquares()
-            console.log(lightWinningSquares(boardSquares, oFindWinningCombination))
+            lightWinningSquares(oFindWinningCombination)
+            gameView.triggerConfetti()
+
         } else {
             console.log('TIE')
             
