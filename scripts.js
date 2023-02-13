@@ -12,12 +12,18 @@ const gameModel = (() => {
         [2, 4, 6],
     ];
     let activePlayer;
+    let bot = false;
+    let gameover = false;
 
     const getGameboardData = () => gameboard;
     const setGameboardData = (value) => gameboard.push(value);
     const getWinningMoves = () => winningMoves;
     const getActivePlayer = () => activePlayer;
     const setActivePlayer = (value) => {activePlayer = value};
+    const getBot = () => bot;
+    const setBot = (value) => {bot = value}
+    const getGameover = () => gameover;
+    const setGameover = (value) => gameover = value;
 
     return {
         getGameboardData,
@@ -25,6 +31,11 @@ const gameModel = (() => {
         getWinningMoves,
         getActivePlayer,
         setActivePlayer,
+        getBot,
+        setBot,
+        getGameover,
+        setGameover
+
 
     };
 })();
@@ -33,7 +44,7 @@ const gameView = (() => {
   const boardContainer = document.querySelector("#gameboard-container");
   const boardSquares = document.querySelectorAll(".square");
   const botToggle = document.querySelector(".switch-button-checkbox");
-  const gameDisplay = document.querySelector(".game-display");
+  const gameDisplay = document.querySelector("#game-display");
   const player1Input = document.querySelector(".player1-input");
   const player2Input = document.querySelector(".player2-input");
   const markerPointer = document.querySelector(".marker-pointer");
@@ -43,8 +54,8 @@ const gameView = (() => {
   const addMarkerToSquare = (square, marker) => square.innerHTML = `<span class="marker">${marker}</span>`;
 
 
-  const displayWinner = () => {
-    
+  const displayMessage = (message) => {
+    gameDisplay.textContent = message;
   }
 
   const triggerConfetti = () => {
@@ -87,7 +98,8 @@ const gameView = (() => {
     startBtn,
     restartBtn,
     addMarkerToSquare,
-    triggerConfetti
+    triggerConfetti,
+    displayMessage
 
   };
 })();
@@ -97,6 +109,7 @@ const gameController = (() => {
   const createPlayer = (name, marker, type) => {
     return { name, marker, type };
   };
+
 
   const toggleActivePlayer = () => {
     if (gameModel.getActivePlayer() === player2) {
@@ -112,88 +125,154 @@ const gameController = (() => {
   };
 
   const disableSquare = square => square.classList.add('disable');
-  const disableAllSquares = (squares) => 
+  
+  const disableAllSquares = () => 
   {
     gameView.boardSquares.forEach((square) => {
         square.classList.add('disable');
     })
   }
 
-
   const lightWinningSquares = (winningSquares) => {
     winningSquares.forEach((id) => {
       gameView.boardSquares[id].classList.add('lightup');
-    })
- 
+    }) 
   };
 
+  const checkWinner = () => {
 
-  const checkWinner = (boardMoves, winningMoves) => {
-
-        // console.log(boardMoves);
-        //console.log(winningMoves);
+      console.log(gameModel.getGameboardData().length)
       
-        const xBoardMoves = boardMoves.map((index) => index).filter((items) => items.marker === "X");
-        const xBoardMovesMap = xBoardMoves.map((index) => index.square);
+      const xBoardMoves = gameModel.getGameboardData().map((index) => index).filter((items) => items.marker === "X");
+      const xBoardMovesMap = xBoardMoves.map((index) => index.square);
+      
+      const oBoardMoves = gameModel.getGameboardData().map((index) => index).filter((items) => items.marker === "O");
+      const oBoardMovesMap = oBoardMoves.map((index) => index.square);
+
+
+      //Checks both arrays for winning combos
+      const xHasWinningCombination = gameModel.getWinningMoves().some((winningCombination) => 
+      winningCombination.every((value) => xBoardMovesMap.includes(value))
+      );
+      const xFindWinningCombination = gameModel.getWinningMoves().find((winningCombination) => 
+      winningCombination.every((value) => xBoardMovesMap.includes(value))
+      );
+
+      const oHasWinningCombination = gameModel.getWinningMoves().some((winningCombination) =>
+      winningCombination.every((value) => oBoardMovesMap.includes(value))
+      );
+      const oFindWinningCombination = gameModel.getWinningMoves().find((winningCombination) => 
+      winningCombination.every((value) => oBoardMovesMap.includes(value))
+      );
+      
+
+      //Returns results of matching items
+      if (xHasWinningCombination) {
+          disableAllSquares();
+          lightWinningSquares(xFindWinningCombination);
+          gameView.triggerConfetti();
+          gameView.displayMessage(`🎉 ${player1.name} Wins!`);
+          gameModel.setGameover(true);
+      }    
+      if (oHasWinningCombination) {
+          disableAllSquares();
+          lightWinningSquares(oFindWinningCombination);
+          gameView.triggerConfetti();
+          gameView.displayMessage(`🎉 ${player2.name} Wins!`);
+          gameModel.setGameover(true);
+      }
+
+      if (!oHasWinningCombination && gameModel.getGameboardData().length >= 9 && !xHasWinningCombination && gameModel.getGameboardData().length >= 9)
+      {
+        gameModel.setGameover(true);
+        gameView.displayMessage(`💩 Tie Game!`);
         
-        const oBoardMoves = boardMoves.map((index) => index).filter((items) => items.marker === "O");
-        const oBoardMovesMap = oBoardMoves.map((index) => index.square);
+      }
 
-
-        //Checks both arrays for winning combos
-        const xHasWinningCombination = winningMoves.some((winningCombination) => 
-        winningCombination.every((value) => xBoardMovesMap.includes(value))
-        );
-        const xFindWinningCombination = winningMoves.find((winningCombination) => 
-        winningCombination.every((value) => xBoardMovesMap.includes(value))
-        );
-
-        const oHasWinningCombination = winningMoves.some((winningCombination) =>
-        winningCombination.every((value) => oBoardMovesMap.includes(value))
-        );
-        const oFindWinningCombination = winningMoves.find((winningCombination) => 
-        winningCombination.every((value) => oBoardMovesMap.includes(value))
-        );
-        
-
-        //Returns results of matching items
-        if (xHasWinningCombination) {
-            //console.log(player1)
-            disableAllSquares()
-            lightWinningSquares(xFindWinningCombination)
-            gameView.triggerConfetti()
-
-
-        } else if (oHasWinningCombination) {
-            //console.log(player2) 
-            disableAllSquares()
-            lightWinningSquares(oFindWinningCombination)
-            gameView.triggerConfetti()
-
-        } else {
-            console.log('TIE')
-            
-        }
   };
 
-  //Primary Gameplay Functionality.
+
+  const botTurn = () => {
+    if(gameModel.getGameover() === true) {return}
+
+    const moves = gameModel.getGameboardData().map(x => x.square)
+    const totalMoves = [0,1,2,3,4,5,6,7,8]
+    const filteredMoves = totalMoves.filter(x => moves.indexOf(x) === -1)
+    const randomIndex = Math.floor(Math.random() * filteredMoves.length)
+    const randomMove = filteredMoves[randomIndex]
+    
+    gameModel.setGameboardData({square: randomMove, marker: 'O'})
+
+    gameView.boardSquares[randomMove].innerHTML = '<span class="marker">O</span>';
+    
+    disableSquare(gameView.boardSquares[randomMove])
+    
+    gameModel.setActivePlayer(player1)
+    
+    checkWinner();
+  }
+
+  const startGame = () => {
+
+
+    // if(gameView.botToggle.checked)
+    // {
+    //   console.log(gameView.botToggle.checked)
+    // }
+    // else 
+    // {
+    //   console.log(gameView.botToggle.checked)
+    //   player1.name = gameView.player1Input.value
+    //   player2.name = gameView.player2Input.value
+  
+    //   console.log(player1);
+    //   console.log(player2);
+    // }
+    
+
+
+  }
+
+  //BUTTONS ----------------------
+
+  //Bot Toggle Button
+  gameView.botToggle.addEventListener('click', () => {
+    gameModel.setBot(gameView.botToggle.checked);
+  })
+
+  //Start Button
+  gameView.startBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    startGame()
+  })
+
+  //Gameboard Buttons
   gameView.boardSquares.forEach((square, index) => {
     square.addEventListener("click", () => {
       
-        
+      if(gameModel.getBot())
+      {
         gameModel.setGameboardData({square: index, marker: gameModel.getActivePlayer().marker})
         gameView.addMarkerToSquare(square, gameModel.getActivePlayer().marker)
-        disableSquare(square);
-        checkWinner(gameModel.getGameboardData(), gameModel.getWinningMoves(), index)
+        checkWinner()
+        botTurn()
+      }
+      else {
+        gameModel.setGameboardData({square: index, marker: gameModel.getActivePlayer().marker})
+        gameView.addMarkerToSquare(square, gameModel.getActivePlayer().marker)
         toggleActivePlayer()
-
+        checkWinner()
+        disableSquare(square);
+      }
     });
   });
+
 
   return {
     createPlayer,
   };
 })();
+
 
 const player1 = gameController.createPlayer("Player 1", "X", "Human");
 const player2 = gameController.createPlayer("Player 2", "O", "Human");
