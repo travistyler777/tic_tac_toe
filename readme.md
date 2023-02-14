@@ -24,11 +24,8 @@
 
 - [X] start game function
     - [X] Sart button
-
-
+- [X] Refactor checkWinner function
 - [ ] Add AI
-- [ ] Refactor checkWinner function
-
 - [ ] Fix mobile responsive
 - [ ] Refactor
 
