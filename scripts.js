@@ -291,6 +291,7 @@ const gameController = (() => {
     //Reset View
     clearSquareDisplay();
     unlightSquareDisplay();
+    gameView.togglePersonInput()
     gameView.player1Input.value = "";
     gameView.player2Input.value = "";
     gameView.gameDisplay.innerHTML = "Enter Name's"
@@ -311,7 +312,7 @@ const gameController = (() => {
   //Bot Toggle Button
   gameView.botToggle.addEventListener("click", () => {
 
-    console.log(gameView.botToggle.checked);
+    gameModel.setBot(gameView.botToggle.checked);
     if (gameView.botToggle.checked)
     {
       gameView.toggleBotInput();
