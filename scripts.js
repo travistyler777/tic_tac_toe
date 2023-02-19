@@ -61,6 +61,9 @@ const gameView = (() => {
   const markerPointer = document.querySelector(".marker-pointer");
   const startBtn = document.querySelector("#start-btn");
   const restartBtn = document.querySelector("#restart-btn");
+  const overlay = document.querySelector('#overlay');
+  const overlayNotification = document.querySelector('.overlay-notification');
+  const overlayBtn = document.querySelector('.overlay-btn');
 
   const addMarkerToSquare = (square, marker) =>
     (square.innerHTML = `<span class="marker">${marker}</span>`);
@@ -68,6 +71,9 @@ const gameView = (() => {
   const displayMessage = (message) => {
     gameDisplay.textContent = message;
   };
+  const displayOverlayMessage = (message) => {
+    overlayNotification.textContent = message;
+  }
 
   const togglePersonInput = () => {
     player2Input.value = "";
@@ -78,6 +84,16 @@ const gameView = (() => {
     player2Input.value = "Bot";
     player2Input.disabled = true;
   }
+
+  const setPointerToPlayer1 = () => {
+    markerPointer.classList.remove("pointer-position2");
+    markerPointer.classList.add("pointer-position1");
+  }
+  const setPointerToPlayer2 = () => {
+    markerPointer.classList.remove("pointer-position1");
+    markerPointer.classList.add("pointer-position2");
+  }
+  
 
   const triggerConfetti = () => {
     // do this for 30 seconds
@@ -112,16 +128,21 @@ const gameView = (() => {
     boardSquares,
     botToggle,
     gameDisplay,
+    displayOverlayMessage,
     player1Input,
     player2Input,
-    markerPointer,
+    setPointerToPlayer1,
+    setPointerToPlayer2,
     startBtn,
     restartBtn,
     addMarkerToSquare,
     triggerConfetti,
     displayMessage,
     toggleBotInput,
-    togglePersonInput
+    togglePersonInput,
+    overlay,
+    overlayNotification,
+    overlayBtn
   };
 })();
 
@@ -133,12 +154,10 @@ const gameController = (() => {
 
   const toggleActivePlayer = () => {
     if (gameModel.getActivePlayer() === player2) {
-      gameView.markerPointer.classList.remove("pointer-position2");
-      gameView.markerPointer.classList.add("pointer-position1");
+      gameView.setPointerToPlayer1();
       gameModel.setActivePlayer(player1);
     } else {
-      gameView.markerPointer.classList.remove("pointer-position1");
-      gameView.markerPointer.classList.add("pointer-position2");
+      gameView.setPointerToPlayer2()
       gameModel.setActivePlayer(player2);
     }
   };
@@ -218,14 +237,18 @@ const gameController = (() => {
       lightWinningSquares(xFindWinningCombination);
       gameView.triggerConfetti();
       gameView.displayMessage(`🎉 ${player1.name} Wins!`);
+      gameView.displayOverlayMessage(`🎉 ${player1.name} Wins!`);
       gameModel.setGameover(true);
+      gameView.overlay.classList.remove('hide');
     }
     if (oHasWinningCombination) {
       disableAllElements(gameView.boardSquares);
       lightWinningSquares(oFindWinningCombination);
       gameView.triggerConfetti();
       gameView.displayMessage(`🎉 ${player2.name} Wins!`);
+      gameView.displayOverlayMessage(`🎉 ${player2.name} Wins!`);
       gameModel.setGameover(true);
+      gameView.overlay.classList.remove('hide');
     }
 
     if (
@@ -234,16 +257,23 @@ const gameController = (() => {
       !xHasWinningCombination &&
       gameModel.getGameboardData().length >= 9
     ) {
+      gameView.overlay.classList.remove('hide');
       gameModel.setGameover(true);
       gameView.displayMessage(`💩 Tie Game!`);
+      gameView.displayOverlayMessage(`💩 Tie Game!`);
     }
   };
 
   const botTurn = () => {
+
+    gameView.setPointerToPlayer2()
+
     if (gameModel.getGameover() === true) {
       return;
     }
 
+    setTimeout(function() {
+      //your code here
     const moves = gameModel.getGameboardData().map((x) => x.square);
     const totalMoves = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     const filteredMoves = totalMoves.filter((x) => moves.indexOf(x) === -1);
@@ -258,6 +288,9 @@ const gameController = (() => {
     disableElement(gameView.boardSquares[randomMove]);
     gameModel.setActivePlayer(player1);
     checkWinner();
+    gameView.setPointerToPlayer1()
+
+    }, 1000);
   };
 
   
@@ -292,6 +325,7 @@ const gameController = (() => {
     clearSquareDisplay();
     unlightSquareDisplay();
     gameView.togglePersonInput()
+    gameView.setPointerToPlayer1()
     gameView.player1Input.value = "";
     gameView.player2Input.value = "";
     gameView.gameDisplay.innerHTML = "Enter Name's"
@@ -332,10 +366,16 @@ const gameController = (() => {
     restartGame();
   });
 
+  gameView.overlayBtn.addEventListener('click', () => {
+    gameView.overlay.classList.add('hide');
+  })
+
   //Gameboard Buttons
   gameView.boardSquares.forEach((square, index) => {
     square.addEventListener("click", () => {
+
       if (gameModel.getBot()) {
+       
         gameModel.setGameboardData({
           square: index,
           marker: gameModel.getActivePlayer().marker,
@@ -343,6 +383,7 @@ const gameController = (() => {
         gameView.addMarkerToSquare(square, gameModel.getActivePlayer().marker);
         checkWinner();
         botTurn();
+        
       } else {
         gameModel.setGameboardData({
           square: index,

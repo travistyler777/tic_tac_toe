@@ -41,6 +41,31 @@ h2 {
   pointer-events: none;
 }
 
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 99;
+  backdrop-filter: blur(5px);
+}
+
+.overlay-elements {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  font-size: 4rem;
+  font-family: komika;
+}
+
+.overlay-btn {
+  margin-top: 20px;
+}
+
 /* GAMEBOARD -------- */
 #gameboard-container {
   margin: auto;

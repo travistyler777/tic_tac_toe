@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="styles.css" />
     <script type="text/javascript" src="scripts.js" defer></script>
-    <title>Document</title>
+    <title>Tic Tac Toe</title>
   </head>
   <body>
     <div class="wrapper">
@@ -47,7 +47,7 @@
             <div id="sidebar">
               <h2 id="game-display">Enter Name's</h2>
               <form>
-                <span class="marker-pointer hide">👉</span>
+                <span class="marker-pointer">👉</span>
                 <input type="text" placeholder="Player 1 Name" class="player1-input"/>
                 <input type="text" placeholder="Player 2 Name" class="player2-input"/>
                 <button id="start-btn">Start</button>
@@ -56,6 +56,12 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div id="overlay" class="hide">
+      <div class="overlay-elements">
+        <span class="overlay-notification">Winner</span>
+        <button class="overlay-btn">Play Again</button>
       </div>
     </div>
   </body>
