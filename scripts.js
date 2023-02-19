@@ -69,6 +69,16 @@ const gameView = (() => {
     gameDisplay.textContent = message;
   };
 
+  const togglePersonInput = () => {
+    player2Input.value = "";
+    player2Input.disabled = false;
+  }
+
+  const toggleBotInput = () => {
+    player2Input.value = "Bot";
+    player2Input.disabled = true;
+  }
+
   const triggerConfetti = () => {
     // do this for 30 seconds
     let duration = 2 * 1000;
@@ -110,6 +120,8 @@ const gameView = (() => {
     addMarkerToSquare,
     triggerConfetti,
     displayMessage,
+    toggleBotInput,
+    togglePersonInput
   };
 })();
 
@@ -298,7 +310,14 @@ const gameController = (() => {
 
   //Bot Toggle Button
   gameView.botToggle.addEventListener("click", () => {
-    gameModel.setBot(gameView.botToggle.checked);
+
+    console.log(gameView.botToggle.checked);
+    if (gameView.botToggle.checked)
+    {
+      gameView.toggleBotInput();
+    } else {
+      gameView.togglePersonInput()
+    }
   });
 
   //Start Button
