@@ -27,10 +27,20 @@ h2 {
   width: 65%;
   margin: 20px;
 }
+@media only screen and (max-width : 1200px) {
+  .col1 {
+    width: 100%;
+  }
+}
 
 .col2 {
   width: 25%;
   margin: 20px;
+}
+@media only screen and (max-width : 1200px) {
+  .col2 {
+    width: 100%;
+  }
 }
 
 .hide {
@@ -38,6 +48,10 @@ h2 {
 }
 
 .disable {
+  pointer-events: none;
+}
+
+.disable-temp {
   pointer-events: none;
 }
 
@@ -68,12 +82,19 @@ h2 {
 
 /* GAMEBOARD -------- */
 #gameboard-container {
+  display: grid;
   margin: auto;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 10px 10px 30px 10px;
+  padding: 20px 20px 40px 20px;
   background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
   border-radius: 10px;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px 10px;
+}
+@media only screen and (max-width : 1200px) {
+  #gameboard-container {
+    max-width: 600px;
+  }
 }
 
 @keyframes fadeInAnimation {
@@ -85,8 +106,6 @@ h2 {
   }
 }
 .square {
-  width: 208px;
-  margin: 15px;
   text-align: center;
   background-color: #11191f;
   border-radius: 10px;
@@ -123,6 +142,13 @@ h2 {
   margin-left: 8px;
   animation: fadeInAnimation ease 0.4s;
 }
+@media only screen and (max-width : 576px) {
+  .marker {
+    font-size: 60px;
+    line-height: 80px;
+    margin-left: 5px;
+  }
+}
 
 .marker-pointer {
   position: absolute;
@@ -155,6 +181,8 @@ h2 {
   padding: 30px;
   border-radius: 10px;
   position: relative;
+  max-width: 500px;
+  margin: auto;
 }
 
 #game-display {
@@ -174,7 +202,7 @@ h2 {
   position: relative;
   padding-right: 120px;
   position: relative;
-  margin-bottom: 20px;
+  margin: 0 auto 20px auto;
 }
 .switch-button:before {
   content: "Bot";
@@ -247,29 +275,6 @@ form {
 @media only screen and (max-width : 1200px) {
   .container {
     max-width: 100%;
-  }
-}
-
-@media only screen and (max-width : 1200px) {
-  .col1 {
-    width: 100%;
-  }
-}
-
-@media only screen and (max-width : 1200px) {
-  .col2 {
-    width: 100%;
-  }
-}
-
-@media only screen and (max-width : 1200px) {
-  .square {
-    width: 30%;
-  }
-}
-@media only screen and (max-width : 768px) {
-  .square {
-    width: 28%;
   }
 }
 
