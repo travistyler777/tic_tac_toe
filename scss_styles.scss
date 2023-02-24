@@ -46,10 +46,7 @@ h2 {
 .hide {
   display: none;
 }
-.disable {
-  pointer-events: none;
-}
-.disable-temp {
+.disable, .disable-temp {
   pointer-events: none;
 }
 
