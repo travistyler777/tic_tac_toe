@@ -94,7 +94,6 @@ const gameView = (() => {
     markerPointer.classList.add("pointer-position2");
   }
   
-
   const triggerConfetti = () => {
     // do this for 30 seconds
     let duration = 2 * 1000;
@@ -168,6 +167,16 @@ const gameController = (() => {
   const disableAllElements = (elements) => {
     elements.forEach((element) => {
       disableElement(element);
+    });
+  };
+  const disableAllSquaresTemp = () => {
+    gameView.boardSquares.forEach((element) => {
+      element.classList.add('disable-temp');
+    });
+  };
+  const enableAllSquaresTemp = () => {
+    gameView.boardSquares.forEach((element) => {
+      element.classList.remove('disable-temp');
     });
   };
 
@@ -272,6 +281,7 @@ const gameController = (() => {
       return;
     }
 
+    disableAllSquaresTemp()
     setTimeout(function() {
       //your code here
     const moves = gameModel.getGameboardData().map((x) => x.square);
@@ -289,7 +299,7 @@ const gameController = (() => {
     gameModel.setActivePlayer(player1);
     checkWinner();
     gameView.setPointerToPlayer1()
-
+    enableAllSquaresTemp()
     }, 1000);
   };
 
@@ -383,6 +393,8 @@ const gameController = (() => {
         gameView.addMarkerToSquare(square, gameModel.getActivePlayer().marker);
         checkWinner();
         botTurn();
+        console.log("if", square);
+        disableElement(square);
         
       } else {
         gameModel.setGameboardData({
@@ -392,6 +404,7 @@ const gameController = (() => {
         gameView.addMarkerToSquare(square, gameModel.getActivePlayer().marker);
         toggleActivePlayer();
         checkWinner();
+        console.log("else", square);
         disableElement(square);
       }
     });

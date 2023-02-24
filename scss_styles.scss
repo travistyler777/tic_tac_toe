@@ -1,3 +1,7 @@
+$media-desktop: "only screen and (max-width : 1200px)";
+$media-tablet: "only screen and (max-width : 768px)";
+$media-mobile: "only screen and (max-width : 576px)";
+
 /* GLOBAL ----------- */
 @font-face {
   font-family: "komika"; /*a name to be used later*/
@@ -27,17 +31,23 @@ h2 {
 .col1 {
   width: 65%;
   margin: 20px;
+  @media #{$media-desktop} {
+    width: 100%;
+  }
 }
 .col2 {
   width: 25%;
   margin: 20px;
+  @media #{$media-desktop} {
+    width: 100%;
+  }
 }
 
 .hide {
   display: none;
 }
-.disable {
-  pointer-events:none;
+.disable, .disable-temp {
+  pointer-events: none;
 }
 
 #overlay {
@@ -55,24 +65,29 @@ h2 {
   position: absolute;
   top: 30%;
   left: 50%;
-  transform: translate(-50% , -50%);
+  transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   font-size: 4rem;
   font-family: komika;
 }
 
 .overlay-btn {
-  margin-top: 20px
+  margin-top: 20px;
 }
 
 /* GAMEBOARD -------- */
 #gameboard-container {
+  display: grid;
   margin: auto;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 10px 10px 30px 10px;
+  padding: 20px 20px 40px 20px;
   background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
   border-radius: 10px;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px 10px;
+  @media #{$media-desktop} {
+    max-width: 600px;
+  }
 }
 
 @keyframes fadeInAnimation {
@@ -85,8 +100,6 @@ h2 {
 }
 
 .square {
-  width: 208px;
-  margin: 15px;
   text-align: center;
   background-color: #11191f;
   border-radius: 10px;
@@ -96,7 +109,6 @@ h2 {
   position: relative;
   transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
   aspect-ratio: 1 / 1;
-  
 }
 
 .square:active {
@@ -123,6 +135,12 @@ h2 {
   transform: translate(-50%, -50%); /* Position text in the middle */
   margin-left: 8px;
   animation: fadeInAnimation ease 0.4s;
+
+  @media #{$media-mobile} {
+    font-size: 60px;
+    line-height: 80px;
+    margin-left: 5px;
+  }
 }
 
 .marker-pointer {
@@ -153,6 +171,8 @@ h2 {
   padding: 30px;
   border-radius: 10px;
   position: relative;
+  max-width: 500px;
+  margin: auto;
 }
 
 #game-display {
@@ -173,7 +193,7 @@ h2 {
   position: relative;
   padding-right: 120px;
   position: relative;
-  margin-bottom: 20px;
+  margin: 0 auto 20px auto;
 
   &:before {
     content: "Bot";
@@ -250,33 +270,8 @@ form {
   border: 1px solid #384956;
 }
 
-$media-desktop: "only screen and (max-width : 1200px)";
-$media-tablet: "only screen and (max-width : 768px)";
-$media-mobile: "only screen and (max-width : 576px)";
-
 .container {
   @media #{$media-desktop} {
     max-width: 100%;
-  }
-  
-}
-
-
-.col1 {
-  @media #{$media-desktop} {
-    width: 100%;
-  }
-}
-.col2 {
-  @media #{$media-desktop} {
-    width: 100%;
-  }
-}
-.square {
-  @media #{$media-desktop} {
-    width: 30%;
-  }
-  @media #{$media-tablet} {
-    width: 28%;
   }
 }
